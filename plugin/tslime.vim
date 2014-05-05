@@ -69,6 +69,12 @@ function! SendToTmux(text)
     call <SID>SetTmuxBuffer(oldbuffer)
 endfunction
 
+"Send and follow
+function! SendToTmuxFollow(text)
+    call SendToTmux(a:text)
+    call system("tmux select-pane -t " . s:TmuxTarget())
+endfunction
+
 function! s:TmuxTarget()
     return '"' . b:tslime['session'] . '":' . b:tslime['window'] . "." . b:tslime['pane']
 endfunction
